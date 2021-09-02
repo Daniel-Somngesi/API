@@ -16,12 +16,15 @@ namespace MakeSale.Controllers
     {
         private DBS_POSableEntities db = new DBS_POSableEntities();
 
-        // GET: api/PaymentMethods
-        public IQueryable<PaymentMethod> GetPaymentMethods()
+        [Route("api/GetPaymentMethods")] //gets list of categories
+        [HttpGet]
+        public List<PaymentMethod> GetPaymentMethods()
         {
-            return db.PaymentMethods;
-        }
+            db.Configuration.ProxyCreationEnabled = false;
+            List<PaymentMethod> paymentMethods = db.PaymentMethods.ToList();
+            return paymentMethods;
 
+        }
         // GET: api/PaymentMethods/5
         [ResponseType(typeof(PaymentMethod))]
         public IHttpActionResult GetPaymentMethod(int id)
